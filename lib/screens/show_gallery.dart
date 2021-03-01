@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_comparison/blocs/show_gallery/show_gallery_bloc.dart';
 import 'package:image_comparison/components/dialogs.dart';
 import 'package:image_comparison/components/small_image_tile.dart';
+import 'package:image_comparison/screens/create_comparison/four_photos_comparison.dart';
+import 'package:image_comparison/screens/create_comparison/two_photos_comparison.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
 import 'package:image_comparison/utils/size_config.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -172,7 +174,9 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
                     height: 10,
                     color: Colors.orange,
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    proceedToComparison(ComparisonType.threePhotos);
+                  }),
               SizedBox(
                 width: 10,
               ),
@@ -182,7 +186,9 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
                     height: 15,
                     color: Colors.amber,
                   ),
-                  onPressed: () {})
+                  onPressed: () {
+                    proceedToComparison(ComparisonType.twoPhotos);
+                  })
             ],
           ),
         ),
@@ -204,8 +210,17 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
       showDialogWithOkayButton(context, "Please select more than 1 photo");
       return;
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return ThreePhotosComparison();
-    }));
+    createComparisonStore.updateComparisonType(comparisonType);
+    if (comparisonType == ComparisonType.twoPhotos) {
+      navigate(TwoPhotosComparison());
+    } else if (comparisonType == ComparisonType.threePhotos) {
+      navigate(ThreePhotosComparison());
+    } else {
+      navigate(FourPhotosComparison());
+    }
+  }
+
+  navigate(Widget widget) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
   }
 }

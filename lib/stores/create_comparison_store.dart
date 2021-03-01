@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
+import 'package:image_comparison/utils/helper.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class CreateComparisonStore extends ChangeNotifier {
@@ -6,6 +7,7 @@ class CreateComparisonStore extends ChangeNotifier {
   List<AssetEntity> _acceptedEntities = List<AssetEntity>();
   List<AssetEntity> _temporarilyDeleted = List<AssetEntity>();
   List<AssetEntity> _favoriteAssetEntities = List<AssetEntity>();
+  ComparisonType _comparisonType;
   bool _isSaving = false;
 
   List<AssetEntity> get assetEntities {
@@ -28,6 +30,10 @@ class CreateComparisonStore extends ChangeNotifier {
     return _isSaving;
   }
 
+  ComparisonType get comparisonType {
+    return _comparisonType;
+  }
+
   acceptAnEntity(AssetEntity assetEntity) {
     _acceptedEntities.add(assetEntity);
     _assetEntities.removeWhere((element) => element.id == assetEntity.id);
@@ -45,6 +51,11 @@ class CreateComparisonStore extends ChangeNotifier {
 
   updateIsSaving(bool value) {
     _isSaving = value;
+    notifyListeners();
+  }
+
+  updateComparisonType(ComparisonType type) {
+    _comparisonType = type;
     notifyListeners();
   }
 }

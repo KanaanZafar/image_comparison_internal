@@ -7,28 +7,33 @@ import 'package:provider/provider.dart';
 import 'package:image_comparison/utils/helper.dart' as Helper;
 import 'package:image_comparison/components/dialogs.dart' as Dialogs;
 
-class SideActionBar extends StatelessWidget {
+class SideActionBarHorizontal extends StatelessWidget {
   final double width;
 
-  SideActionBar({this.width = 150});
+  final bool isVertical;
+  final double iconSize;
+
+  SideActionBarHorizontal(
+      {this.width = 150, this.isVertical = false, this.iconSize = 15});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: SizeConfig.screenHeight,
+      height: isVertical ? null : SizeConfig.screenHeight,
       color: Colors.black,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             children: [
               IconButton(
                   icon: Icon(
                     Icons.extension,
-                    size: 15,
                     color: Colors.white,
                   ),
+                  iconSize: iconSize,
                   onPressed: () {
                     saveIntoGallery(
                         Provider.of<CreateComparisonStore>(context,
@@ -39,9 +44,9 @@ class SideActionBar extends StatelessWidget {
               IconButton(
                   icon: Icon(
                     Icons.favorite,
-                    size: 15,
                     color: Colors.pink,
                   ),
+                  iconSize: iconSize,
                   onPressed: () {
                     saveIntoGallery(
                         Provider.of<CreateComparisonStore>(context,
@@ -53,9 +58,9 @@ class SideActionBar extends StatelessWidget {
               IconButton(
                   icon: Icon(
                     Icons.description,
-                    size: 15,
                     color: Colors.white,
                   ),
+                  iconSize: iconSize,
                   onPressed: () {
                     CreateComparisonStore createComparisonStore =
                         Provider.of<CreateComparisonStore>(context,
@@ -66,12 +71,15 @@ class SideActionBar extends StatelessWidget {
           ),
           Expanded(
               child: ListView.builder(
+            scrollDirection: isVertical ? Axis.horizontal : Axis.vertical,
             itemBuilder: (context, index) {
               return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
+                  padding: isVertical
+                      ? EdgeInsets.symmetric(horizontal: 5)
+                      : EdgeInsets.symmetric(vertical: 5),
                   child: Draggable(
-                      axis: Axis.horizontal,
-                      affinity: Axis.horizontal,
+                      axis: isVertical ? null : Axis.horizontal,
+                      affinity: isVertical ? Axis.vertical : Axis.horizontal,
                       feedback: AssetWidget(
                           asset: Provider.of<CreateComparisonStore>(context)
                               .assetEntities[index]),

@@ -7,6 +7,10 @@ import 'package:photo_widget/photo_widget.dart';
 import 'package:provider/provider.dart';
 
 class LargeImageTile extends StatefulWidget {
+  final EdgeInsets edgeInsets;
+
+  LargeImageTile({this.edgeInsets});
+
   @override
   _LargeImageTileState createState() => _LargeImageTileState();
 }
@@ -28,7 +32,8 @@ class _LargeImageTileState extends State<LargeImageTile> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: widget.edgeInsets ??
+            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: DragTarget(
           builder: (context, data, rejectedData) {
             return assetEntity == null

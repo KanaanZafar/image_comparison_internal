@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:image_comparison/stores/create_comparison_store.dart';
 import 'package:image_comparison/utils/constants.dart';
 import 'package:image_comparison/utils/helper.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_widget/photo_widget.dart';
+import 'package:provider/provider.dart';
 
 class ShowFullImage extends StatefulWidget {
   final AssetEntity assetEntity;
@@ -14,9 +16,20 @@ class ShowFullImage extends StatefulWidget {
 }
 
 class _ShowFullImageState extends State<ShowFullImage> {
+  CreateComparisonStore createComparisonStore;
+
+  @override
+  void initState() {
+    createComparisonStore =
+        Provider.of<CreateComparisonStore>(context, listen: false);
+    super.initState();
+  }
+
   @override
   void dispose() {
-    setOrientationHorizontal();
+    if (createComparisonStore.comparisonType == ComparisonType.threePhotos) {
+      setOrientationHorizontal();
+    }
     super.dispose();
   }
 

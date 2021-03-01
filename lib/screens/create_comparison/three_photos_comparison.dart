@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_comparison/components/large_image_tile.dart';
-import 'package:image_comparison/components/side_action_bar.dart';
+import 'package:image_comparison/components/side_action_bar_horizontal.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
 import 'package:image_comparison/utils/helper.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +52,7 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
                   LargeImageTile(),
                   LargeImageTile(),
                   LargeImageTile(),
-                  SideActionBar(),
+                  SideActionBarHorizontal(),
                 ],
               ),
       ),
