@@ -34,7 +34,7 @@ class _TwoPhotosComparisonState extends State<TwoPhotosComparison> {
             Expanded(
               child: Center(
                 child: SideActionBarHorizontal(
-                  width: SizeConfig.screenWidth,
+                  // width: SizeConfig.screenWidth,
                   isVertical: true,
                 ),
               ),

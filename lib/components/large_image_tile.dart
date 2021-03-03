@@ -8,8 +8,10 @@ import 'package:provider/provider.dart';
 
 class LargeImageTile extends StatefulWidget {
   final EdgeInsets edgeInsets;
+  final double height;
+  final double width;
 
-  LargeImageTile({this.edgeInsets});
+  LargeImageTile({this.edgeInsets, this.height, this.width});
 
   @override
   _LargeImageTileState createState() => _LargeImageTileState();
@@ -22,6 +24,8 @@ class _LargeImageTileState extends State<LargeImageTile> {
 
   @override
   void initState() {
+    print("---width: ${widget.width}");
+    print("-----height: ${widget.height}");
     createComparisonStore =
         Provider.of<CreateComparisonStore>(context, listen: false);
 
@@ -30,27 +34,32 @@ class _LargeImageTileState extends State<LargeImageTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: widget.edgeInsets ??
-            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: DragTarget(
-          builder: (context, data, rejectedData) {
-            return assetEntity == null
-                ? Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black)),
-                    child: Center(
-                      child: Text(
-                        "Drag and drop an image here",
-                        textAlign: TextAlign.center,
-                      ),
+    return Padding(
+      padding: widget.edgeInsets ??
+          EdgeInsets.zero, //EdgeInsets.symmetric(horizontal: 1, vertical: 2),
+      child: DragTarget(
+        builder: (context, data, rejectedData) {
+          return assetEntity == null
+              ? Container(
+                  width: widget.width,
+                  height: widget.height,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.black)),
+                  child: Center(
+                    child: Text(
+                      "Drag and drop an image here",
+                      textAlign: TextAlign.center,
                     ),
-                  )
-                : Container(
-                    height: double.infinity,
-                    width: double.infinity,
+                  ),
+                )
+              : GestureDetector(
+                  onTap: () {
+                    showInFullScreen();
+                  },
+                  child: Container(
+                    height: widget.height, //double.infinity,
+                    width: widget.width, //double.infinity,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
@@ -103,40 +112,39 @@ class _LargeImageTileState extends State<LargeImageTile> {
 
                                     setState(() {});
                                   }),
-                              IconButton(
-                                  icon: Icon(Icons.fullscreen),
-                                  onPressed: () {
-                                    setOrientationVertical();
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ShowFullImage(
-                                                  assetEntity: assetEntity,
-                                                )));
-                                  })
                             ],
                           ),
                         ),
                       ],
                     ),
-                  );
-          },
-          onAccept: (AssetEntity data) {
-            if (assetEntity != null) {
-              createComparisonStore.acceptedEntities
-                  .removeWhere((element) => element.id == assetEntity.id);
-              createComparisonStore.assetEntities.add(assetEntity);
-            }
-            setState(() {
-              createComparisonStore.acceptAnEntity(data);
-              assetEntity = data;
-            });
-          },
-          onWillAccept: (AssetEntity data) {
-            return true;
-          },
-        ),
+                  ),
+                );
+        },
+        onAccept: (AssetEntity data) {
+          if (assetEntity != null) {
+            createComparisonStore.acceptedEntities
+                .removeWhere((element) => element.id == assetEntity.id);
+            createComparisonStore.assetEntities.add(assetEntity);
+          }
+          setState(() {
+            createComparisonStore.acceptAnEntity(data);
+            assetEntity = data;
+          });
+        },
+        onWillAccept: (AssetEntity data) {
+          return true;
+        },
       ),
     );
+  }
+
+  showInFullScreen() {
+    setOrientationVertical();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ShowFullImage(
+                  assetEntity: assetEntity,
+                )));
   }
 }

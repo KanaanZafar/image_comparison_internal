@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:image_comparison/utils/size_config.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -55,11 +57,13 @@ setOrientationVertical() {
   ]);
 }
 
-setOrientationHorizontal() {
-  SystemChrome.setPreferredOrientations([
+setOrientationHorizontal() async {
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]);
+  print("----height: ${SizeConfig.screenHeight}");
+  print("-----width: ${SizeConfig.screenWidth}");
 }
 
 saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {

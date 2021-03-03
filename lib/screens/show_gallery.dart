@@ -33,6 +33,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: BlocListener(
         cubit: showGalleryBloc,
@@ -158,8 +159,8 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
             children: [
               IconButton(
                   icon: Container(
-                    height: 5,
-                    width: 10,
+                    height: 10,
+                    width: 20,
                     color: Colors.yellow,
                   ),
                   onPressed: () {
@@ -170,8 +171,8 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
               ),
               IconButton(
                   icon: Container(
-                    width: 5,
-                    height: 10,
+                    width: 10,
+                    height: 20,
                     color: Colors.orange,
                   ),
                   onPressed: () {
@@ -182,8 +183,8 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
               ),
               IconButton(
                   icon: Container(
-                    width: 5,
-                    height: 15,
+                    width: 10,
+                    height: 25,
                     color: Colors.amber,
                   ),
                   onPressed: () {

@@ -8,18 +8,21 @@ import 'package:image_comparison/utils/helper.dart' as Helper;
 import 'package:image_comparison/components/dialogs.dart' as Dialogs;
 
 class SideActionBarHorizontal extends StatelessWidget {
-  final double width;
-
+  final double photoWidth;
+  final double photoHeight;
   final bool isVertical;
   final double iconSize;
 
   SideActionBarHorizontal(
-      {this.width = 150, this.isVertical = false, this.iconSize = 15});
+      {this.photoHeight,
+      this.photoWidth,
+      this.isVertical = false,
+      this.iconSize = 15});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
+      // width: photoWidth,
       height: isVertical ? null : SizeConfig.screenHeight,
       color: Colors.black,
       child: Column(
@@ -28,7 +31,7 @@ class SideActionBarHorizontal extends StatelessWidget {
         children: [
           Row(
             children: [
-              IconButton(
+              /*      IconButton(
                   icon: Icon(
                     Icons.extension,
                     color: Colors.white,
@@ -67,6 +70,7 @@ class SideActionBarHorizontal extends StatelessWidget {
                             listen: false);
                     createComparisonStore.restoreTemporarilyDeleted();
                   })
+       */
             ],
           ),
           Expanded(
@@ -77,21 +81,25 @@ class SideActionBarHorizontal extends StatelessWidget {
                   padding: isVertical
                       ? EdgeInsets.symmetric(horizontal: 5)
                       : EdgeInsets.symmetric(vertical: 5),
-                  child: Draggable(
-                      axis: isVertical ? null : Axis.horizontal,
-                      affinity: isVertical ? Axis.vertical : Axis.horizontal,
-                      feedback: AssetWidget(
-                          asset: Provider.of<CreateComparisonStore>(context)
-                              .assetEntities[index]),
-                      child: AssetWidget(
-                          asset: Provider.of<CreateComparisonStore>(context)
-                              .assetEntities[index]),
-                      childWhenDragging: AssetWidget(
-                          asset: Provider.of<CreateComparisonStore>(context)
-                              .assetEntities[index]),
-                      data: Provider.of<CreateComparisonStore>(context,
-                              listen: false)
-                          .assetEntities[index]));
+                  child: Container(
+                    height: photoHeight,
+                    width: photoWidth,
+                    child: Draggable(
+                        axis: isVertical ? null : Axis.horizontal,
+                        affinity: isVertical ? Axis.vertical : Axis.horizontal,
+                        feedback: AssetWidget(
+                            asset: Provider.of<CreateComparisonStore>(context)
+                                .assetEntities[index]),
+                        child: AssetWidget(
+                            asset: Provider.of<CreateComparisonStore>(context)
+                                .assetEntities[index]),
+                        childWhenDragging: AssetWidget(
+                            asset: Provider.of<CreateComparisonStore>(context)
+                                .assetEntities[index]),
+                        data: Provider.of<CreateComparisonStore>(context,
+                                listen: false)
+                            .assetEntities[index]),
+                  ));
             },
             itemCount: Provider.of<CreateComparisonStore>(context)
                 .assetEntities

@@ -35,17 +35,19 @@ class _ShowFullImageState extends State<ShowFullImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          Constants.fullImage,
-        ),
+    return SafeArea(
+      child: Scaffold(
+        /*  appBar: AppBar(
+          title: Text(
+            Constants.fullImage,
+          ),
+          backgroundColor: Colors.black,
+        ), */
         backgroundColor: Colors.black,
-      ),
-      backgroundColor: Colors.black,
-      body: AssetWidget(
-        asset: widget.assetEntity,
-        thumbSize: 1500,
+        body: AssetWidget(
+          asset: widget.assetEntity,
+          thumbSize: 1500,
+        ),
       ),
     );
   }

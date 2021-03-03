@@ -4,6 +4,7 @@ import 'package:image_comparison/components/large_image_tile.dart';
 import 'package:image_comparison/components/side_action_bar_horizontal.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
 import 'package:image_comparison/utils/helper.dart';
+import 'package:image_comparison/utils/size_config.dart';
 import 'package:provider/provider.dart';
 
 class ThreePhotosComparison extends StatefulWidget {
@@ -12,13 +13,15 @@ class ThreePhotosComparison extends StatefulWidget {
 }
 
 class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
-  CreateComparisonStore createComparisonStore;
+  double imageHeight;
+  double imageWidth;
 
   @override
   void initState() {
-    createComparisonStore =
-        Provider.of<CreateComparisonStore>(context, listen: false);
     setOrientationHorizontal();
+    double x = SizeConfig.screenHeight / 10;
+    imageWidth = 3 * (x);
+    imageHeight = SizeConfig.screenWidth - x;
     super.initState();
   }
 
@@ -33,28 +36,26 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: createComparisonStore.isSaving
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Please Wait",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CupertinoActivityIndicator()
-                ],
-              )
-            : Row(
-                children: [
-                  LargeImageTile(),
-                  LargeImageTile(),
-                  LargeImageTile(),
-                  SideActionBarHorizontal(),
-                ],
-              ),
+        body: Row(
+          children: [
+            LargeImageTile(
+              width: imageWidth,
+              height: imageHeight,
+            ),
+            LargeImageTile(
+              width: imageWidth,
+              height: imageHeight,
+            ),
+            LargeImageTile(
+              width: imageWidth,
+              height: imageHeight,
+            ),
+            SideActionBarHorizontal(
+              photoHeight: imageHeight / 3,
+              photoWidth: imageWidth / 3,
+            ),
+          ],
+        ),
       ),
     );
   }

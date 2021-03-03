@@ -37,7 +37,7 @@ class _FourPhotosComparisonState extends State<FourPhotosComparison> {
                     ],
                   )),
               SideActionBarHorizontal(
-                width: 125,
+                // width: 125,
                 isVertical: false,
                 iconSize: 15,
               )
