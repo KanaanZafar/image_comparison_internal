@@ -24,8 +24,6 @@ class _LargeImageTileState extends State<LargeImageTile> {
 
   @override
   void initState() {
-    print("---width: ${widget.width}");
-    print("-----height: ${widget.height}");
     createComparisonStore =
         Provider.of<CreateComparisonStore>(context, listen: false);
 
@@ -39,6 +37,7 @@ class _LargeImageTileState extends State<LargeImageTile> {
           EdgeInsets.zero, //EdgeInsets.symmetric(horizontal: 1, vertical: 2),
       child: DragTarget(
         builder: (context, data, rejectedData) {
+
           return assetEntity == null
               ? Container(
                   width: widget.width,
@@ -58,14 +57,17 @@ class _LargeImageTileState extends State<LargeImageTile> {
                     showInFullScreen();
                   },
                   child: Container(
-                    height: widget.height, //double.infinity,
-                    width: widget.width, //double.infinity,
+                    height: widget.height,
+                    width: widget.width,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        AssetWidget(
-                          asset: assetEntity,
-                          thumbSize: 2000,
+                        FittedBox(
+                          fit: BoxFit.contain,
+                          child: AssetWidget(
+                            asset: assetEntity,
+                            thumbSize: 2000,
+                          ),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
@@ -138,8 +140,12 @@ class _LargeImageTileState extends State<LargeImageTile> {
     );
   }
 
-  showInFullScreen() {
-    setOrientationVertical();
+  showInFullScreen() async {
+    if (assetEntity.height >= assetEntity.width) {
+      await setOrientationVertical();
+    } else {
+      await setOrientationHorizontal();
+    }
     Navigator.push(
         context,
         MaterialPageRoute(

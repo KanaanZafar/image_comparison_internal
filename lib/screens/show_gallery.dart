@@ -164,7 +164,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
                     color: Colors.yellow,
                   ),
                   onPressed: () {
-                    proceedToComparison(ComparisonType.fourPhotos);
+//                    proceedToComparison(ComparisonType.fourPhotos);
                   }),
               SizedBox(
                 width: 10,
@@ -188,7 +188,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
                     color: Colors.amber,
                   ),
                   onPressed: () {
-                    proceedToComparison(ComparisonType.twoPhotos);
+//                    proceedToComparison(ComparisonType.twoPhotos);
                   })
             ],
           ),

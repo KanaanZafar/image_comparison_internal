@@ -1,12 +1,9 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:image_comparison/utils/size_config.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:image/image.dart' as IMG;
 
 enum ComparisonType { fourPhotos, threePhotos, twoPhotos }
 
@@ -62,27 +59,21 @@ setOrientationHorizontal() async {
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]);
-  print("----height: ${SizeConfig.screenHeight}");
-  print("-----width: ${SizeConfig.screenWidth}");
 }
 
 saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
   Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
   String directoryPath = appDocumentsDirectory.path;
   PermissionStatus permissionStatus = await Permission.storage.request();
-  print("-----permissionStatus: ${permissionStatus}");
   for (int i = 0; i < assetEntities.length; i++) {
     AssetEntity assetEntity = assetEntities[i];
     File assetFile = await assetEntity.file;
     String imageType = assetFile.path.split('.').last;
     String savePath = '$directoryPath/image_${DateTime.now()}.$imageType';
     final File newImage = await assetFile.copy(savePath);
-    print("------+++++${newImage.lengthSync()}");
     if (permissionStatus.isGranted) {
-//      final result = await ImageGallerySaver.saveFile(newImage.path);
       final result =
           await ImageGallerySaver.saveImage(newImage.readAsBytesSync());
-      print("-----result: ${result}");
     }
   }
 }

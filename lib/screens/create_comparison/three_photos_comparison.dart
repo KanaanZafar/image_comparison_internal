@@ -20,7 +20,7 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
   void initState() {
     setOrientationHorizontal();
     double x = SizeConfig.screenHeight / 10;
-    imageWidth = 3 * (x);
+    imageWidth = (3 * (x)) - (SizeConfig.blockSizeVertical * 2);
     imageHeight = SizeConfig.screenWidth - x;
     super.initState();
   }
@@ -37,18 +37,20 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
       child: Scaffold(
         backgroundColor: Colors.black,
         body: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Container(),
             LargeImageTile(
               width: imageWidth,
-              height: imageHeight,
+              height: SizeConfig.screenWidth
             ),
             LargeImageTile(
               width: imageWidth,
-              height: imageHeight,
+              height: SizeConfig.screenWidth
             ),
             LargeImageTile(
               width: imageWidth,
-              height: imageHeight,
+              height: SizeConfig.screenWidth
             ),
             SideActionBarHorizontal(
               photoHeight: imageHeight / 3,

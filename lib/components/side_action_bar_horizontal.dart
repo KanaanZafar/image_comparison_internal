@@ -22,35 +22,40 @@ class SideActionBarHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: photoWidth,
+      width: photoWidth,
       height: isVertical ? null : SizeConfig.screenHeight,
       color: Colors.black,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(
+            height: 10,
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              /*      IconButton(
-                  icon: Icon(
+              InkWell(
+                  child: Icon(
                     Icons.extension,
+                    size: iconSize,
                     color: Colors.white,
                   ),
-                  iconSize: iconSize,
-                  onPressed: () {
+                  onTap: () {
                     saveIntoGallery(
                         Provider.of<CreateComparisonStore>(context,
                                 listen: false)
                             .acceptedEntities,
                         context);
                   }),
-              IconButton(
-                  icon: Icon(
+              InkWell(
+                  child: Icon(
                     Icons.favorite,
+                    size: iconSize,
                     color: Colors.pink,
                   ),
-                  iconSize: iconSize,
-                  onPressed: () {
+//                  iconSize: iconSize,
+                  onTap: () {
                     saveIntoGallery(
                         Provider.of<CreateComparisonStore>(context,
                                 listen: false)
@@ -58,19 +63,18 @@ class SideActionBarHorizontal extends StatelessWidget {
                         context,
                         message: "No favorite image selected");
                   }),
-              IconButton(
-                  icon: Icon(
+              InkWell(
+                  child: Icon(
                     Icons.description,
                     color: Colors.white,
+                    size: iconSize,
                   ),
-                  iconSize: iconSize,
-                  onPressed: () {
+                  onTap: () {
                     CreateComparisonStore createComparisonStore =
                         Provider.of<CreateComparisonStore>(context,
                             listen: false);
                     createComparisonStore.restoreTemporarilyDeleted();
                   })
-       */
             ],
           ),
           Expanded(

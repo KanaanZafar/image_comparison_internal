@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
-import 'package:image_comparison/utils/constants.dart';
 import 'package:image_comparison/utils/helper.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_widget/photo_widget.dart';
@@ -37,16 +36,14 @@ class _ShowFullImageState extends State<ShowFullImage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        /*  appBar: AppBar(
-          title: Text(
-            Constants.fullImage,
-          ),
-          backgroundColor: Colors.black,
-        ), */
         backgroundColor: Colors.black,
-        body: AssetWidget(
-          asset: widget.assetEntity,
-          thumbSize: 1500,
+        body: Center(
+          child: InteractiveViewer(
+            child: AssetWidget(
+              asset: widget.assetEntity,
+              thumbSize: 1500,
+            ),
+          ),
         ),
       ),
     );
