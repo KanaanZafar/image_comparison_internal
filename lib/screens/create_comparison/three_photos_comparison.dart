@@ -5,7 +5,9 @@ import 'package:image_comparison/components/side_action_bar_horizontal.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
 import 'package:image_comparison/utils/helper.dart';
 import 'package:image_comparison/utils/size_config.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:image_comparison/components/dialogs.dart' as Dialogs;
 
 class ThreePhotosComparison extends StatefulWidget {
   @override
@@ -36,25 +38,44 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: Stack(
           children: [
-            Container(),
-            LargeImageTile(
-              width: imageWidth,
-              height: SizeConfig.screenWidth
-            ),
-            LargeImageTile(
-              width: imageWidth,
-              height: SizeConfig.screenWidth
-            ),
-            LargeImageTile(
-              width: imageWidth,
-              height: SizeConfig.screenWidth
-            ),
-            SideActionBarHorizontal(
-              photoHeight: imageHeight / 3,
-              photoWidth: imageWidth / 3,
+            PositionedDirectional(
+                top: 10,
+                start: 10,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.share_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    List<AssetEntity> favorites =
+                        Provider.of<CreateComparisonStore>(context,
+                                listen: false)
+                            .favoriteAssetEntities;
+                    if (favorites.isNotEmpty) {
+                      shareWithOtherApps(favorites);
+                    } else {
+                      Dialogs.showDialogWithOkayButton(
+                          context, "Please favorite any image first");
+                    }
+                  },
+                )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(),
+                LargeImageTile(
+                    width: imageWidth, height: SizeConfig.screenWidth),
+                LargeImageTile(
+                    width: imageWidth, height: SizeConfig.screenWidth),
+                LargeImageTile(
+                    width: imageWidth, height: SizeConfig.screenWidth),
+                SideActionBarHorizontal(
+                  photoHeight: imageHeight / 3,
+                  photoWidth: imageWidth / 3,
+                ),
+              ],
             ),
           ],
         ),

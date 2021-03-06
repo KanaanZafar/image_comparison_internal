@@ -56,12 +56,13 @@ class SideActionBarHorizontal extends StatelessWidget {
                   ),
 //                  iconSize: iconSize,
                   onTap: () {
+
                     saveIntoGallery(
                         Provider.of<CreateComparisonStore>(context,
                                 listen: false)
                             .favoriteAssetEntities,
                         context,
-                        message: "No favorite image selected");
+                        message: "No favorite image selected"); 
                   }),
               InkWell(
                   child: Icon(
@@ -86,7 +87,7 @@ class SideActionBarHorizontal extends StatelessWidget {
                       ? EdgeInsets.symmetric(horizontal: 5)
                       : EdgeInsets.symmetric(vertical: 5),
                   child: Container(
-                    height: photoHeight,
+//                    height: photoHeight,
                     width: photoWidth,
                     child: Draggable(
                         axis: isVertical ? null : Axis.horizontal,

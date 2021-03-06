@@ -58,4 +58,6 @@ class CreateComparisonStore extends ChangeNotifier {
     _comparisonType = type;
     notifyListeners();
   }
+
+  showFavoritesOnly() {}
 }

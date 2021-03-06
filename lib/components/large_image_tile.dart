@@ -37,7 +37,6 @@ class _LargeImageTileState extends State<LargeImageTile> {
           EdgeInsets.zero, //EdgeInsets.symmetric(horizontal: 1, vertical: 2),
       child: DragTarget(
         builder: (context, data, rejectedData) {
-
           return assetEntity == null
               ? Container(
                   width: widget.width,
@@ -75,7 +74,10 @@ class _LargeImageTileState extends State<LargeImageTile> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               IconButton(
-                                  icon: Icon(Icons.close),
+                                  icon: Icon(
+                                    Icons.close_sharp,
+                                    color: Colors.white,
+                                  ),
                                   onPressed: () {
                                     createComparisonStore.temporarilyDeleted
                                         .add(assetEntity);
@@ -89,14 +91,16 @@ class _LargeImageTileState extends State<LargeImageTile> {
                                     setState(() {});
                                   }),
                               IconButton(
-                                  icon: Icon(createComparisonStore
-                                              .favoriteAssetEntities
-                                              .indexWhere((element) =>
-                                                  element.id ==
-                                                  assetEntity.id) <
-                                          0
-                                      ? Icons.favorite_border
-                                      : Icons.favorite),
+                                  icon: Icon(
+                                    createComparisonStore.favoriteAssetEntities
+                                                .indexWhere((element) =>
+                                                    element.id ==
+                                                    assetEntity.id) <
+                                            0
+                                        ? Icons.favorite_border
+                                        : Icons.favorite,
+                                    color: Colors.pink,
+                                  ),
                                   onPressed: () {
                                     int assetIndex = createComparisonStore
                                         .favoriteAssetEntities

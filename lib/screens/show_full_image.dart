@@ -37,13 +37,28 @@ class _ShowFullImageState extends State<ShowFullImage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: Center(
-          child: InteractiveViewer(
-            child: AssetWidget(
-              asset: widget.assetEntity,
-              thumbSize: 1500,
+        body: Stack(
+          children: [
+            Center(
+              child: InteractiveViewer(
+                child: AssetWidget(
+                  asset: widget.assetEntity,
+                  thumbSize: 1500,
+                ),
+              ),
             ),
-          ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: IconButton(
+                  icon: Icon(
+                    Icons.share_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    shareWithOtherApps([widget.assetEntity]);
+                  }),
+            )
+          ],
         ),
       ),
     );
