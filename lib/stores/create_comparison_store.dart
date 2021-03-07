@@ -59,5 +59,13 @@ class CreateComparisonStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  showFavoritesOnly() {}
+  clearStore() {
+    _assetEntities.clear();
+    _acceptedEntities.clear();
+    _temporarilyDeleted.clear();
+    _favoriteAssetEntities.clear();
+    _comparisonType = null;
+    _isSaving = false;
+    notifyListeners();
+  }
 }

@@ -248,7 +248,10 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
     }
   }
 
-  navigate(Widget widget) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+  navigate(Widget widget) async {
+    await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => widget));
+    createComparisonStore.clearStore();
+    setState(() {});
   }
 }
