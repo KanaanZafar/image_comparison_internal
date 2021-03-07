@@ -6,6 +6,8 @@ import 'package:image_comparison/components/small_image_tile.dart';
 import 'package:image_comparison/screens/create_comparison/four_photos_comparison.dart';
 import 'package:image_comparison/screens/create_comparison/two_photos_comparison.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
+import 'package:image_comparison/utils/constants.dart';
+import 'package:image_comparison/utils/iFavorites_colors.dart';
 import 'package:image_comparison/utils/size_config.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:flutter/cupertino.dart';
@@ -78,11 +80,23 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
             slivers: [
               SliverAppBar(
                 title: Text(
-                  "Select any images",
-                  style: TextStyle(color: Colors.black),
+                  "${Constants.iFavorites}",
+                  style: TextStyle(color: Colors.white),
                 ),
                 automaticallyImplyLeading: false,
-                backgroundColor: Colors.transparent,
+                backgroundColor: IfavoirtesColors.primaryColor,
+                centerTitle: true,
+                actions: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.share,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      shareApp();
+                    },
+                  )
+                ],
               ),
               SliverGrid(
                 delegate: SliverChildBuilderDelegate((ctx, index) {
@@ -157,7 +171,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
+              /*   IconButton(
                   icon: Container(
                     height: 10,
                     width: 20,
@@ -165,7 +179,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
                   ),
                   onPressed: () {
 //                    proceedToComparison(ComparisonType.fourPhotos);
-                  }),
+                  }), */
               SizedBox(
                 width: 10,
               ),
@@ -181,7 +195,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
               SizedBox(
                 width: 10,
               ),
-              IconButton(
+              /* IconButton(
                   icon: Container(
                     width: 10,
                     height: 25,
@@ -189,7 +203,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
                   ),
                   onPressed: () {
 //                    proceedToComparison(ComparisonType.twoPhotos);
-                  })
+                  }) */
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:image_comparison/utils/constants.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -64,7 +65,17 @@ setOrientationHorizontal() async {
 
 saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
   Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
-  String directoryPath = appDocumentsDirectory.path;
+  Directory appDocDirFolder =
+      Directory('${appDocumentsDirectory.path}/${Constants.iFavorites}/');
+  bool exists = await appDocDirFolder.exists();
+  String directoryPath;
+  if (exists) {
+    directoryPath = appDocDirFolder.path;
+  } else {
+    Directory appDocDirIfavorites =
+        await appDocDirFolder.create(recursive: true);
+    directoryPath = appDocDirIfavorites.path;
+  }
   PermissionStatus permissionStatus = await Permission.storage.request();
   for (int i = 0; i < assetEntities.length; i++) {
     AssetEntity assetEntity = assetEntities[i];
@@ -89,4 +100,8 @@ shareWithOtherApps(List<AssetEntity> assetEntities) async {
   Share.shareFiles(
     paths,
   );
+}
+
+shareApp() async {
+  await Share.share("https://fremontinfotech.wixsite.com/gingerapps");
 }
