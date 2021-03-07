@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_comparison/blocs/show_gallery/show_gallery_bloc.dart';
@@ -6,8 +7,10 @@ import 'package:image_comparison/components/small_image_tile.dart';
 import 'package:image_comparison/screens/create_comparison/four_photos_comparison.dart';
 import 'package:image_comparison/screens/create_comparison/two_photos_comparison.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
+import 'package:image_comparison/utils/ad_ids.dart';
 import 'package:image_comparison/utils/constants.dart';
 import 'package:image_comparison/utils/iFavorites_colors.dart';
+import 'package:image_comparison/utils/interstatial.dart';
 import 'package:image_comparison/utils/size_config.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,6 +29,9 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
 
   @override
   void initState() {
+    InterstatialAd.admobInterstitial =
+        AdmobInterstitial(adUnitId: AdIds.interstatialAdId);
+    InterstatialAd.admobInterstitial.load();
     createComparisonStore =
         Provider.of<CreateComparisonStore>(context, listen: false);
     showGalleryBloc = ShowGalleryBloc();
@@ -207,7 +213,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
             ],
           ),
         ),
-        Container(
+        /* Container(
           height: 50,
           color: Colors.grey,
           child: Center(
@@ -215,6 +221,13 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
             "Banner ad will be here",
             style: TextStyle(color: Colors.white),
           )),
+        ), */
+        Container(
+          color: Colors.grey,
+          child: AdmobBanner(
+              adUnitId: AdIds.bannerAdId,
+              adSize: AdmobBannerSize.ADAPTIVE_BANNER(
+                  width: SizeConfig.screenWidth.toInt())),
         ),
       ],
     );

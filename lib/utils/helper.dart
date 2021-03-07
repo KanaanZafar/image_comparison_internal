@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:share/share.dart';
+import 'package:path/path.dart';
 
 enum ComparisonType { fourPhotos, threePhotos, twoPhotos }
 
@@ -62,6 +63,36 @@ setOrientationHorizontal() async {
     DeviceOrientation.landscapeLeft,
   ]);
 }
+/*
+saveIntoLocalDirectory2(List<AssetEntity> assetEntities) async {
+  Directory baseDirectory = await getApplicationDocumentsDirectory();
+  String directoryToBeCreated = Constants.iFavorites;
+  String finalDirectory = join(baseDirectory.path, directoryToBeCreated);
+  Directory directory = Directory(finalDirectory);
+  bool exists = await directory.exists();
+
+  if (exists) {
+  } else {
+    await directory.create(recursive: true);
+  }
+  PermissionStatus permissionStatus = await Permission.storage.request();
+  for (int i = 0; i < assetEntities.length; i++) {
+    AssetEntity assetEntity = assetEntities[i];
+    File assetFile = await assetEntity.file;
+    String imageType = assetFile.path.split('.').last;
+    String savePath = '${directory.path}/image_${DateTime.now()}.$imageType';
+    final File newImage = await assetFile.copy(savePath);
+    if (permissionStatus.isGranted) {
+      await ImageGallerySaver.saveFile(
+        newImage.path,
+      );
+      /*final result = await ImageGallerySaver.saveImage(
+        newImage.readAsBytesSync(),
+        name: Constants.iFavorites,
+      ); */
+    }
+  }
+} */
 
 saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
   Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
@@ -84,8 +115,13 @@ saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
     String savePath = '$directoryPath/image_${DateTime.now()}.$imageType';
     final File newImage = await assetFile.copy(savePath);
     if (permissionStatus.isGranted) {
-      final result =
-          await ImageGallerySaver.saveImage(newImage.readAsBytesSync());
+      await ImageGallerySaver.saveFile(
+        newImage.path,
+      );
+      /*final result = await ImageGallerySaver.saveImage(
+        newImage.readAsBytesSync(),
+        name: Constants.iFavorites,
+      ); */
     }
   }
 }

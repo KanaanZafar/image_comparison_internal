@@ -7,10 +7,13 @@
          FlutterApplication and put your custom class here. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
-        android:name="io.flutter.app.FlutterApplication"
+    android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/ic_launcher"
-        android:label="image_comparison"
+        android:label="iFavorites"
         android:requestLegacyExternalStorage="true">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

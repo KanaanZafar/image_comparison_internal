@@ -37,11 +37,16 @@ dependencies:
   image_gallery_saver: ^1.2.2
   image: ^2.1.19
   share: ^0.6.5+4
+  admob_flutter: ^1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: ^0.8.1
+flutter_icons:
+  image_path: "assets/images/favorite_icon.jpeg"
+  android: true
+  ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
+import 'package:image_comparison/utils/interstatial.dart';
 import 'package:image_comparison/utils/size_config.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_widget/photo_widget.dart';
@@ -55,14 +56,19 @@ class SideActionBarHorizontal extends StatelessWidget {
                     color: Colors.pink,
                   ),
 //                  iconSize: iconSize,
-                  onTap: () {
-
-                    saveIntoGallery(
+                  onTap: () async {
+                    bool isLoaded =
+                        await InterstatialAd.admobInterstitial.isLoaded;
+                    if (isLoaded) {
+                      InterstatialAd.admobInterstitial.show();
+                    }
+                    await saveIntoGallery(
                         Provider.of<CreateComparisonStore>(context,
                                 listen: false)
                             .favoriteAssetEntities,
                         context,
-                        message: "No favorite image selected"); 
+                        message: "No favorite image selected");
+                    InterstatialAd.admobInterstitial.load();
                   }),
               InkWell(
                   child: Icon(
