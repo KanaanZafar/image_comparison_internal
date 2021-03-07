@@ -40,6 +40,22 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
         backgroundColor: Colors.black,
         body: Stack(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(),
+                LargeImageTile(
+                    width: imageWidth, height: SizeConfig.screenWidth),
+                LargeImageTile(
+                    width: imageWidth, height: SizeConfig.screenWidth),
+                LargeImageTile(
+                    width: imageWidth, height: SizeConfig.screenWidth),
+                SideActionBarHorizontal(
+                  photoHeight: imageHeight / 3,
+                  photoWidth: imageWidth / 3,
+                ),
+              ],
+            ),
             PositionedDirectional(
                 top: 10,
                 start: 10,
@@ -61,22 +77,6 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
                     }
                   },
                 )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(),
-                LargeImageTile(
-                    width: imageWidth, height: SizeConfig.screenWidth),
-                LargeImageTile(
-                    width: imageWidth, height: SizeConfig.screenWidth),
-                LargeImageTile(
-                    width: imageWidth, height: SizeConfig.screenWidth),
-                SideActionBarHorizontal(
-                  photoHeight: imageHeight / 3,
-                  photoWidth: imageWidth / 3,
-                ),
-              ],
-            ),
           ],
         ),
       ),

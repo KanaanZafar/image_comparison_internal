@@ -42,12 +42,13 @@ class _LargeImageTileState extends State<LargeImageTile> {
                   width: widget.width,
                   height: widget.height,
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black)),
+                      color: Colors.black,
+                      border: Border.all(color: Colors.white)),
                   child: Center(
                     child: Text(
                       "Drag and drop an image here",
                       textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 )

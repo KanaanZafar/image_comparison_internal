@@ -17,7 +17,7 @@ class SideActionBarHorizontal extends StatelessWidget {
       {this.photoHeight,
       this.photoWidth,
       this.isVertical = false,
-      this.iconSize = 15});
+      this.iconSize = 20});
 
   @override
   Widget build(BuildContext context) {
