@@ -252,6 +252,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
     await Navigator.push(
         context, MaterialPageRoute(builder: (context) => widget));
     createComparisonStore.clearStore();
+    showGalleryBloc.add(FetchGalleryPhotos());
     setState(() {});
   }
 }

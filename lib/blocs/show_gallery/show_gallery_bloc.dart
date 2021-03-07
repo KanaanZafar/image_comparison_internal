@@ -11,6 +11,7 @@ part 'show_gallery_state.dart';
 
 class ShowGalleryBloc extends Bloc<ShowGalleryEvent, ShowGalleryState> {
   ShowGalleryBloc() : super(ShowGalleryInitial());
+  List<AssetEntity> recentAssetEntities;
 
   @override
   Stream<ShowGalleryState> mapEventToState(
@@ -20,9 +21,13 @@ class ShowGalleryBloc extends Bloc<ShowGalleryEvent, ShowGalleryState> {
       if (event is FetchGalleryPhotos) {
         bool result = await PhotoManager.requestPermission();
         if (result) {
-          yield FetchingGalleryPhotos();
-          List<AssetEntity> recentAssetEntities =
-              await fetchRecentAssetEntities();
+          if (recentAssetEntities == null) {
+            print("-----recent entities null");
+            yield FetchingGalleryPhotos();
+          } else {
+            print("----++++ ${recentAssetEntities.length}");
+          }
+          recentAssetEntities = await fetchRecentAssetEntities();
           yield GalleryPhotosFetched(assetEntites: recentAssetEntities);
         } else {
           yield PermissionNotGranted();

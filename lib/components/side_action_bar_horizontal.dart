@@ -14,11 +14,10 @@ class SideActionBarHorizontal extends StatelessWidget {
   final bool isVertical;
   final double iconSize;
 
-  SideActionBarHorizontal(
-      {this.photoHeight,
-      this.photoWidth,
-      this.isVertical = false,
-      this.iconSize = 15});
+  SideActionBarHorizontal({this.photoHeight,
+    this.photoWidth,
+    this.isVertical = false,
+    this.iconSize = 15});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +33,9 @@ class SideActionBarHorizontal extends StatelessWidget {
             height: 10,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              InkWell(
+              /* InkWell(
                   child: Icon(
                     Icons.extension,
                     size: iconSize,
@@ -48,7 +47,7 @@ class SideActionBarHorizontal extends StatelessWidget {
                                 listen: false)
                             .acceptedEntities,
                         context);
-                  }),
+                  }), */
               InkWell(
                   child: Icon(
                     Icons.favorite,
@@ -58,13 +57,14 @@ class SideActionBarHorizontal extends StatelessWidget {
 //                  iconSize: iconSize,
                   onTap: () async {
                     bool isLoaded =
-                        await InterstatialAd.admobInterstitial.isLoaded;
+                    await InterstatialAd.admobInterstitial.isLoaded;
                     if (isLoaded) {
                       InterstatialAd.admobInterstitial.show();
                     }
                     await saveIntoGallery(
-                        Provider.of<CreateComparisonStore>(context,
-                                listen: false)
+                        Provider
+                            .of<CreateComparisonStore>(context,
+                            listen: false)
                             .favoriteAssetEntities,
                         context,
                         message: "No favorite image selected");
@@ -78,44 +78,50 @@ class SideActionBarHorizontal extends StatelessWidget {
                   ),
                   onTap: () {
                     CreateComparisonStore createComparisonStore =
-                        Provider.of<CreateComparisonStore>(context,
-                            listen: false);
+                    Provider.of<CreateComparisonStore>(context,
+                        listen: false);
                     createComparisonStore.restoreTemporarilyDeleted();
                   })
             ],
           ),
           Expanded(
               child: ListView.builder(
-            scrollDirection: isVertical ? Axis.horizontal : Axis.vertical,
-            itemBuilder: (context, index) {
-              return Padding(
-                  padding: isVertical
-                      ? EdgeInsets.symmetric(horizontal: 5)
-                      : EdgeInsets.symmetric(vertical: 5),
-                  child: Container(
+                scrollDirection: isVertical ? Axis.horizontal : Axis.vertical,
+                itemBuilder: (context, index) {
+                  return Padding(
+                      padding: isVertical
+                          ? EdgeInsets.symmetric(horizontal: 5)
+                          : EdgeInsets.symmetric(vertical: 5),
+                      child: Container(
 //                    height: photoHeight,
-                    width: photoWidth,
-                    child: Draggable(
-                        axis: isVertical ? null : Axis.horizontal,
-                        affinity: isVertical ? Axis.vertical : Axis.horizontal,
-                        feedback: AssetWidget(
-                            asset: Provider.of<CreateComparisonStore>(context)
-                                .assetEntities[index]),
-                        child: AssetWidget(
-                            asset: Provider.of<CreateComparisonStore>(context)
-                                .assetEntities[index]),
-                        childWhenDragging: AssetWidget(
-                            asset: Provider.of<CreateComparisonStore>(context)
-                                .assetEntities[index]),
-                        data: Provider.of<CreateComparisonStore>(context,
+                        width: photoWidth,
+                        child: Draggable(
+                            axis: isVertical ? null : Axis.horizontal,
+                            affinity: isVertical ? Axis.vertical : Axis
+                                .horizontal,
+                            feedback: AssetWidget(
+                                asset: Provider
+                                    .of<CreateComparisonStore>(context)
+                                    .assetEntities[index]),
+                            child: AssetWidget(
+                                asset: Provider
+                                    .of<CreateComparisonStore>(context)
+                                    .assetEntities[index]),
+                            childWhenDragging: AssetWidget(
+                                asset: Provider
+                                    .of<CreateComparisonStore>(context)
+                                    .assetEntities[index]),
+                            data: Provider
+                                .of<CreateComparisonStore>(context,
                                 listen: false)
-                            .assetEntities[index]),
-                  ));
-            },
-            itemCount: Provider.of<CreateComparisonStore>(context)
-                .assetEntities
-                .length,
-          ))
+                                .assetEntities[index]),
+                      ));
+                },
+                itemCount: Provider
+                    .of<CreateComparisonStore>(context)
+                    .assetEntities
+                    .length,
+              ))
         ],
       ),
     );
@@ -129,7 +135,7 @@ class SideActionBarHorizontal extends StatelessWidget {
     }
 
     CreateComparisonStore createComparisonStore =
-        Provider.of<CreateComparisonStore>(context, listen: false);
+    Provider.of<CreateComparisonStore>(context, listen: false);
 
     try {
       createComparisonStore.updateIsSaving(true);
