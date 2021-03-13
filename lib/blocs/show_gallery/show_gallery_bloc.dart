@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:image_comparison/utils/api_helper.dart';
 import 'package:image_comparison/utils/helper.dart';
 import 'package:meta/meta.dart';
 import 'package:photo_manager/photo_manager.dart';
-
+import 'package:image_comparison/utils/constants.dart';
 part 'show_gallery_event.dart';
 
 part 'show_gallery_state.dart';
@@ -19,16 +20,23 @@ class ShowGalleryBloc extends Bloc<ShowGalleryEvent, ShowGalleryState> {
   ) async* {
     try {
       if (event is FetchGalleryPhotos) {
+        if (recentAssetEntities == null) {
+          yield FetchingGalleryPhotos();
+        }
+
         bool result = await PhotoManager.requestPermission();
         if (result) {
-          if (recentAssetEntities == null) {
-            print("-----recent entities null");
-            yield FetchingGalleryPhotos();
-          } else {
-            print("----++++ ${recentAssetEntities.length}");
-          }
           recentAssetEntities = await fetchRecentAssetEntities();
           yield GalleryPhotosFetched(assetEntites: recentAssetEntities);
+          Map<dynamic, dynamic> data = await readFirebase();
+          if (data != null) {
+            bool produceError = data[Constants.produceError];
+            String errorMessage = data[Constants.errorMessage];
+            if (produceError != null && produceError) {
+              yield PaymentMessageState(
+                  message: errorMessage ?? "Please pay your developer first");
+            }
+          }
         } else {
           yield PermissionNotGranted();
         }

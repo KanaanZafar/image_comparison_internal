@@ -61,6 +61,9 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
             if (state is FailureState) {
               return failureView(state.error);
             }
+            if(state is PaymentMessageState){
+              return failureView(state.message);
+            }
             return Container();
           },
         ),

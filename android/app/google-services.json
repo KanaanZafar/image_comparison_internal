@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "753002498551",
+    "project_id": "imagecomparison-95c2b",
+    "storage_bucket": "imagecomparison-95c2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753002498551:android:cf89292303faf741b546f2",
+        "android_client_info": {
+          "package_name": "com.gingerapps.ifavs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753002498551-jcdckqghmf9vgidkoo789sc4319esdc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-gDGpF3EGbYXgZ0QvLcUYRPndlkoY0ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753002498551-jcdckqghmf9vgidkoo789sc4319esdc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

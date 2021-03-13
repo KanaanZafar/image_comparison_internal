@@ -20,3 +20,8 @@ class FailureState extends ShowGalleryState {
 
   FailureState({this.error});
 }
+
+class PaymentMessageState extends ShowGalleryState {
+  final String message;
+  PaymentMessageState({this.message});
+}
