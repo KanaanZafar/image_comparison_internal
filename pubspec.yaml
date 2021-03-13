@@ -38,6 +38,7 @@ dependencies:
   image: ^2.1.19
   share: ^0.6.5+4
   admob_flutter: ^1.0.1
+#  change_app_package_name: ^0.1.2
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-package com.zimble.image_comparison
+package com.gingerapps.ifavs
 
 import io.flutter.embedding.android.FlutterActivity
 

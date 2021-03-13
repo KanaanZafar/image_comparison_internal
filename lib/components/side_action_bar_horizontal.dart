@@ -17,10 +17,11 @@ class SideActionBarHorizontal extends StatelessWidget {
   SideActionBarHorizontal({this.photoHeight,
     this.photoWidth,
     this.isVertical = false,
-    this.iconSize = 15});
+    this.iconSize = 25});
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: photoWidth,
       height: isVertical ? null : SizeConfig.screenHeight,
@@ -70,6 +71,8 @@ class SideActionBarHorizontal extends StatelessWidget {
                         message: "No favorite image selected");
                     InterstatialAd.admobInterstitial.load();
                   }),
+              Container(),
+              Container(),
               InkWell(
                   child: Icon(
                     Icons.description,
