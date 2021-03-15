@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:image_comparison/utils/constants.dart';
+
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:save_in_gallery/save_in_gallery.dart';
 import 'package:share/share.dart';
 import 'package:path/path.dart';
 
@@ -95,9 +98,30 @@ saveIntoLocalDirectory2(List<AssetEntity> assetEntities) async {
 } */
 
 saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
-  Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
-  Directory appDocDirFolder =
-      Directory('${appDocumentsDirectory.path}/${Constants.iFavorites}/');
+//  Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
+  Directory appDocumentsDirectory;
+  Directory appDocDirFolder;
+  if (Platform.isAndroid) {
+    appDocumentsDirectory = await getExternalStorageDirectory();
+    String newPath = "";
+
+    List<String> paths = appDocumentsDirectory.path.split("/");
+    for (int x = 1; x < paths.length; x++) {
+      String folder = paths[x];
+      if (folder != "Android") {
+        newPath += "/" + folder;
+      } else {
+        break;
+      }
+    }
+    newPath = newPath + "/${Constants.iFavorites}";
+    appDocDirFolder = Directory(newPath);
+  } else if (Platform.isIOS) {
+    appDocumentsDirectory = await getTemporaryDirectory();
+    appDocDirFolder =
+        Directory('${appDocumentsDirectory.path}/${Constants.iFavorites}/');
+  }
+
   bool exists = await appDocDirFolder.exists();
   String directoryPath;
   if (exists) {
@@ -107,21 +131,35 @@ saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
         await appDocDirFolder.create(recursive: true);
     directoryPath = appDocDirIfavorites.path;
   }
+//  ImageGallerySaver.
   PermissionStatus permissionStatus = await Permission.storage.request();
+/*  List<Uint8List> bytesList = List<Uint8List>();
+  for (int i = 0; i < assetEntities.length; i++) {
+    AssetEntity assetEntity = assetEntities[i];
+    Uint8List bytes = await assetEntity.originBytes;
+    bytesList.add(bytes);
+  }
+  ImageSaver imageSaver = ImageSaver();
+  await imageSaver.saveImages(
+      imageBytes: bytesList, directoryName: "iFavsBakchodi");
+*/
   for (int i = 0; i < assetEntities.length; i++) {
     AssetEntity assetEntity = assetEntities[i];
     File assetFile = await assetEntity.file;
+//    Uint8List imageBytes = await assetEntity.originBytes;
     String imageType = assetFile.path.split('.').last;
     String savePath = '$directoryPath/image_${DateTime.now()}.$imageType';
     final File newImage = await assetFile.copy(savePath);
     if (permissionStatus.isGranted) {
       await ImageGallerySaver.saveFile(
         newImage.path,
+        isReturnPathOfIOS: true,
       );
-      /*final result = await ImageGallerySaver.saveImage(
-        newImage.readAsBytesSync(),
-        name: Constants.iFavorites,
-      ); */
+//      await ImageGallerySaver.saveImage(
+//        imageBytes,
+//        name: "IfavsBakchodi",
+//        isReturnImagePathOfIOS: true,
+//      );
     }
   }
 }
@@ -141,3 +179,53 @@ shareWithOtherApps(List<AssetEntity> assetEntities) async {
 shareApp() async {
   await Share.share("https://fremontinfotech.wixsite.com/gingerapps");
 }
+/*
+Future<bool> saveVideo(String url, String fileName) async {
+  Directory directory;
+  try {
+    if (Platform.isAndroid) {
+      directory = await getExternalStorageDirectory();
+      String newPath = "";
+      print(directory);
+      List<String> paths = directory.path.split("/");
+      for (int x = 1; x < paths.length; x++) {
+        String folder = paths[x];
+        if (folder != "Android") {
+          newPath += "/" + folder;
+        } else {
+          break;
+        }
+      }
+      newPath = newPath + "/RPSApp";
+      directory = Directory(newPath);
+    } else {
+      if (await _requestPermission(Permission.photos)) {
+        directory = await getTemporaryDirectory();
+      } else {
+        return false;
+      }
+    }
+    File saveFile = File(directory.path + "/$fileName");
+    if (!await directory.exists()) {
+      await directory.create(recursive: true);
+    }
+    if (await directory.exists()) {
+      await dio.download(url, saveFile.path,
+          onReceiveProgress: (value1, value2) {
+        setState(() {
+          progress = value1 / value2;
+        });
+      });
+      if (Platform.isIOS) {
+        await ImageGallerySaver.saveFile(saveFile.path,
+            isReturnPathOfIOS: true);
+      }
+      return true;
+    }
+    return false;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+*/
