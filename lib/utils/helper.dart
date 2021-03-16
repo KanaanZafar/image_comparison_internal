@@ -7,7 +7,6 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:save_in_gallery/save_in_gallery.dart';
 import 'package:share/share.dart';
 import 'package:path/path.dart';
 
