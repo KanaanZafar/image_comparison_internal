@@ -43,6 +43,26 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          Constants.iFavorites,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: IfavoirtesColors.primaryColor,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.share,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              shareApp();
+            },
+          )
+        ],
+      ),
       body: BlocListener(
         cubit: showGalleryBloc,
         listener: (context, state) {},
@@ -61,7 +81,7 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
             if (state is FailureState) {
               return failureView(state.error);
             }
-            if(state is PaymentMessageState){
+            if (state is PaymentMessageState) {
               return failureView(state.message);
             }
             return Container();
@@ -87,26 +107,6 @@ class _ShowGalleryScreenState extends State<ShowGalleryScreen> {
           height: SizeConfig.screenHeight,
           child: CustomScrollView(
             slivers: [
-              SliverAppBar(
-                title: Text(
-                  "${Constants.iFavorites}",
-                  style: TextStyle(color: Colors.white),
-                ),
-                automaticallyImplyLeading: false,
-                backgroundColor: IfavoirtesColors.primaryColor,
-                centerTitle: true,
-                actions: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.share,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      shareApp();
-                    },
-                  )
-                ],
-              ),
               SliverGrid(
                 delegate: SliverChildBuilderDelegate((ctx, index) {
                   return GestureDetector(
