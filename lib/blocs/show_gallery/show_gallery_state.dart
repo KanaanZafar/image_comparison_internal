@@ -23,5 +23,12 @@ class FailureState extends ShowGalleryState {
 
 class PaymentMessageState extends ShowGalleryState {
   final String message;
+
   PaymentMessageState({this.message});
+}
+
+class AllAlbumsFetched extends ShowGalleryState {
+  final List<AssetPathEntity> assetPathEntities;
+
+  AllAlbumsFetched({this.assetPathEntities});
 }

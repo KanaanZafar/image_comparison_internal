@@ -51,6 +51,12 @@ Future<List<AssetEntity>> fetchRecentAssetEntities() async {
   return assetEntitiesList;
 }
 
+Future<List<AssetPathEntity>> getAllAlbums() async {
+  List<AssetPathEntity> assetPathEntities =
+      await PhotoManager.getAssetPathList(type: RequestType.image);
+  return assetPathEntities;
+}
+
 setOrientationVertical() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
