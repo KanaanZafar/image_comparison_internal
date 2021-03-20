@@ -28,7 +28,7 @@ class PaymentMessageState extends ShowGalleryState {
 }
 
 class AllAlbumsFetched extends ShowGalleryState {
-  final List<AssetPathEntity> assetPathEntities;
+  final List<Album> albums;
 
-  AllAlbumsFetched({this.assetPathEntities});
+  AllAlbumsFetched({this.albums});
 }

@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
+import 'package:image_comparison/models/album.dart';
 import 'package:image_comparison/utils/constants.dart';
 
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:save_in_gallery/save_in_gallery.dart';
 import 'package:share/share.dart';
-import 'package:path/path.dart';
 
 enum ComparisonType { fourPhotos, threePhotos, twoPhotos }
 
@@ -51,10 +50,21 @@ Future<List<AssetEntity>> fetchRecentAssetEntities() async {
   return assetEntitiesList;
 }
 
-Future<List<AssetPathEntity>> getAllAlbums() async {
+Future<List<Album>> getAllAlbums() async {
   List<AssetPathEntity> assetPathEntities =
       await PhotoManager.getAssetPathList(type: RequestType.image);
-  return assetPathEntities;
+  List<Album> albumsList = List<Album>();
+  print("------assetPathEntitiesList: ${assetPathEntities.length}");
+  for (AssetPathEntity assetPathEntity in assetPathEntities) {
+    print("----inside for loop");
+    List<AssetEntity> assetEntities = await assetPathEntity.assetList;
+    Album album = Album();
+    album.albumName = assetPathEntity.name;
+    album.photosInAlbum = assetEntities;
+    albumsList.add(album);
+  }
+
+  return albumsList;
 }
 
 setOrientationVertical() {
