@@ -54,9 +54,7 @@ Future<List<Album>> getAllAlbums() async {
   List<AssetPathEntity> assetPathEntities =
       await PhotoManager.getAssetPathList(type: RequestType.image);
   List<Album> albumsList = List<Album>();
-  print("------assetPathEntitiesList: ${assetPathEntities.length}");
   for (AssetPathEntity assetPathEntity in assetPathEntities) {
-    print("----inside for loop");
     List<AssetEntity> assetEntities = await assetPathEntity.assetList;
     Album album = Album();
     album.albumName = assetPathEntity.name;

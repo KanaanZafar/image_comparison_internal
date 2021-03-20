@@ -21,28 +21,6 @@ class ShowGalleryBloc extends Bloc<ShowGalleryEvent, ShowGalleryState> {
     ShowGalleryEvent event,
   ) async* {
     try {
-      if (event is FetchGalleryPhotos) {
-        if (recentAssetEntities == null) {
-          yield FetchingGalleryPhotos();
-        }
-
-        bool result = await PhotoManager.requestPermission();
-        if (result) {
-          recentAssetEntities = await fetchRecentAssetEntities();
-          yield GalleryPhotosFetched(assetEntites: recentAssetEntities);
-          Map<dynamic, dynamic> data = await readFirebase();
-          if (data != null) {
-            bool produceError = data[Constants.produceError];
-            String errorMessage = data[Constants.errorMessage];
-            if (produceError != null && produceError) {
-              yield PaymentMessageState(
-                  message: errorMessage ?? "Please pay your developer first");
-            }
-          }
-        } else {
-          yield PermissionNotGranted();
-        }
-      }
       if (event is FetchAllAlbums) {
         bool result = await PhotoManager.requestPermission();
         yield FetchingGalleryPhotos();
