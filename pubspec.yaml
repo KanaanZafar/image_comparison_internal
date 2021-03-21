@@ -33,8 +33,6 @@ dependencies:
   flutter_bloc: ^6.1.2
   provider: ^4.3.3
   permission_handler: ^5.1.0+2
-  path_provider: ^1.6.27
-  image: ^2.1.19
   share: ^0.6.5+4
   admob_flutter: ^1.0.1
   firebase_database: ^3.1.3

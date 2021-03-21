@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gallery_saver/flutter_gallery_saver.dart';
 import 'package:image_comparison/models/album.dart';
 import 'package:image_comparison/utils/constants.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:share/share.dart';
@@ -80,7 +79,7 @@ setOrientationHorizontal() async {
 }
 
 saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
-  Directory appDocumentsDirectory;
+/*  Directory appDocumentsDirectory;
   Directory appDocDirFolder;
   if (Platform.isAndroid) {
     appDocumentsDirectory = await getExternalStorageDirectory();
@@ -111,7 +110,7 @@ saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
     Directory appDocDirIfavorites =
         await appDocDirFolder.create(recursive: true);
     directoryPath = appDocDirIfavorites.path;
-  }
+  } */
   PermissionStatus permissionStatus = await Permission.storage.request();
   for (int i = 0; i < assetEntities.length; i++) {
     AssetEntity assetEntity = assetEntities[i];
