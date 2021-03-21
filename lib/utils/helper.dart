@@ -1,9 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/services.dart';
+import 'package:flutter_gallery_saver/flutter_gallery_saver.dart';
 import 'package:image_comparison/models/album.dart';
 import 'package:image_comparison/utils/constants.dart';
-
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -60,7 +60,6 @@ Future<List<Album>> getAllAlbums() async {
     album.photosInAlbum = assetEntities;
     albumsList.add(album);
   }
-
   return albumsList;
 }
 
@@ -114,18 +113,17 @@ saveIntoLocalDirectory(List<AssetEntity> assetEntities) async {
     directoryPath = appDocDirIfavorites.path;
   }
   PermissionStatus permissionStatus = await Permission.storage.request();
-
   for (int i = 0; i < assetEntities.length; i++) {
     AssetEntity assetEntity = assetEntities[i];
-    File assetFile = await assetEntity.file;
-    String imageType = assetFile.path.split('.').last;
-    String savePath = '$directoryPath/image_${DateTime.now()}.$imageType';
-    final File newImage = await assetFile.copy(savePath);
+    Uint8List bytes = await assetEntity.originBytes;
     if (permissionStatus.isGranted) {
-      await ImageGallerySaver.saveFile(
-        newImage.path,
-        isReturnPathOfIOS: true,
+      final result = await FlutterGallerySaver.saveImage(
+        bytes,
+        quality: 80,
+        albumName: Constants.iFavorites,
       );
+      print("saveImage result: " + result); //这个result文件存储地址
+
     }
   }
 }
