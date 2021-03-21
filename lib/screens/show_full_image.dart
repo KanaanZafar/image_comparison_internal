@@ -63,4 +63,5 @@ class _ShowFullImageState extends State<ShowFullImage> {
       ),
     );
   }
+
 }

@@ -8,7 +8,7 @@ import 'package:image_comparison/utils/size_config.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:image_comparison/components/dialogs.dart' as Dialogs;
-
+import 'package:flutter/services.dart';
 class ThreePhotosComparison extends StatefulWidget {
   @override
   _ThreePhotosComparisonState createState() => _ThreePhotosComparisonState();
@@ -21,9 +21,9 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
 
   @override
   void initState() {
+    hideStatusBar();
     createComparisonStore =
         Provider.of<CreateComparisonStore>(context, listen: false);
-    setOrientationHorizontal();
     double x = SizeConfig.screenHeight / 10;
     imageWidth = (3 * (x)) - (SizeConfig.blockSizeVertical * 2);
     imageHeight = SizeConfig.screenWidth - x;
@@ -96,5 +96,11 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
     setState(() {});
     await setOrientationVertical();
     Navigator.pop(context);
+  }
+
+  hideStatusBar() async {
+    await SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    setOrientationHorizontal();
+
   }
 }

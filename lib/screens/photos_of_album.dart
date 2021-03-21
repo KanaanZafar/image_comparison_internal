@@ -11,6 +11,7 @@ import 'package:image_comparison/utils/helper.dart';
 import 'package:image_comparison/utils/iFavorites_colors.dart';
 import 'package:image_comparison/utils/size_config.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 class PhotosOfAlbum extends StatefulWidget {
   final Album album;
@@ -170,6 +171,14 @@ class _PhotosOfAlbumState extends State<PhotosOfAlbum> {
   }
 
   navigate(Widget widget) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+    await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => widget));
+    await showStatusBar();
+    await Future.delayed(Duration(milliseconds: 500));
+    setState(() {});
+  }
+
+  showStatusBar() async {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 }
