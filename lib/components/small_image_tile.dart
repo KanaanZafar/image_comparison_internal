@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_comparison/utils/iFavorites_colors.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_widget/photo_widget.dart';
 
@@ -21,20 +22,15 @@ class SmallImageTile extends StatelessWidget {
           start: 5,
           top: 5,
           child: Container(
-            height: 20,
-            width: 20,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.black),
-            ),
+            color: isSelected ? Colors.white : Colors.transparent,
             child: Center(
               child: isSelected
                   ? Icon(
-                      Icons.check,
-                      color: Colors.grey,
-                      size: 15,
+                      Icons.check_box,
+                      color: IfavoirtesColors.primaryColor,
+//                      size: 15,
                     )
-                  : Container(),
+                  : Icon(Icons.check_box_outline_blank, color: Colors.white,),
             ),
           ),
         ),
