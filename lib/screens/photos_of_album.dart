@@ -43,7 +43,6 @@ class _PhotosOfAlbumState extends State<PhotosOfAlbum> {
         backgroundColor: IfavoirtesColors.primaryColor,
         centerTitle: false,
         automaticallyImplyLeading: true,
-
       ),
       body: Stack(
         children: [
@@ -78,6 +77,12 @@ class _PhotosOfAlbumState extends State<PhotosOfAlbum> {
                     crossAxisCount: 2,
                     mainAxisSpacing: 2,
                     crossAxisSpacing: 2,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    color: Colors.transparent,
+                    height: 110,
                   ),
                 )
               ],

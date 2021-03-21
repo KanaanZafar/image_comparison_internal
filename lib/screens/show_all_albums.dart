@@ -105,14 +105,19 @@ class _ShowAllAlbumsScreenState extends State<ShowAllAlbumsScreen> {
                   mainAxisSpacing: 2,
                   crossAxisSpacing: 2,
                 ),
-              )
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 60,
+                  color: Colors.transparent,
+                ),
+              ),
             ],
           ),
         ),
-
-        Align(alignment: Alignment.bottomCenter,
-        child: BannerAdWidget(),
-//    child: Container(),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: BannerAdWidget(),
         )
       ],
     );
