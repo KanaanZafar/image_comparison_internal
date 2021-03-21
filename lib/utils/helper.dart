@@ -143,5 +143,5 @@ shareWithOtherApps(List<AssetEntity> assetEntities) async {
 }
 
 shareApp() async {
-  await Share.share("https://fremontinfotech.wixsite.com/gingerapps");
+  await Share.share(Constants.playStoreLink);
 }
