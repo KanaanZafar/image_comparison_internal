@@ -1,4 +1,3 @@
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:image_comparison/components/banner_ad_widget.dart';
 import 'package:image_comparison/components/dialogs.dart';
@@ -8,8 +7,6 @@ import 'package:image_comparison/screens/create_comparison/four_photos_compariso
 import 'package:image_comparison/screens/create_comparison/three_photos_comparison.dart';
 import 'package:image_comparison/screens/create_comparison/two_photos_comparison.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
-import 'package:image_comparison/utils/ad_ids.dart';
-import 'package:image_comparison/utils/constants.dart';
 import 'package:image_comparison/utils/helper.dart';
 import 'package:image_comparison/utils/iFavorites_colors.dart';
 import 'package:image_comparison/utils/size_config.dart';
