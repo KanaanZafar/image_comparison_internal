@@ -17,9 +17,12 @@ class ThreePhotosComparison extends StatefulWidget {
 class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
   double imageHeight;
   double imageWidth;
+  CreateComparisonStore createComparisonStore;
 
   @override
   void initState() {
+    createComparisonStore =
+        Provider.of<CreateComparisonStore>(context, listen: false);
     setOrientationHorizontal();
     double x = SizeConfig.screenHeight / 10;
     imageWidth = (3 * (x)) - (SizeConfig.blockSizeVertical * 2);
@@ -28,58 +31,70 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
   }
 
   @override
-  void dispose() {
-    setOrientationVertical();
+  void dispose() async {
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(),
-                LargeImageTile(
-                    width: imageWidth, height: SizeConfig.screenWidth),
-                LargeImageTile(
-                    width: imageWidth, height: SizeConfig.screenWidth),
-                LargeImageTile(
-                    width: imageWidth, height: SizeConfig.screenWidth),
-                SideActionBarHorizontal(
-                  photoHeight: imageHeight / 3,
-                  photoWidth: imageWidth / 3,
-                ),
-              ],
-            ),
-            PositionedDirectional(
-                top: 10,
-                start: 10,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.share_rounded,
-                    color: Colors.white,
+    return WillPopScope(
+      onWillPop: () async {
+        await navigateBack();
+        return;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          body: Stack(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(),
+                  LargeImageTile(
+                      width: imageWidth, height: SizeConfig.screenWidth),
+                  LargeImageTile(
+                      width: imageWidth, height: SizeConfig.screenWidth),
+                  LargeImageTile(
+                      width: imageWidth, height: SizeConfig.screenWidth),
+                  SideActionBarHorizontal(
+                    photoHeight: imageHeight / 3,
+                    photoWidth: imageWidth / 3,
                   ),
-                  onPressed: () {
-                    List<AssetEntity> favorites =
-                        Provider.of<CreateComparisonStore>(context,
-                                listen: false)
-                            .favoriteAssetEntities;
-                    if (favorites.isNotEmpty) {
-                      shareWithOtherApps(favorites);
-                    } else {
-                      Dialogs.showDialogWithOkayButton(
-                          context, "Please favorite any image first");
-                    }
-                  },
-                )),
-          ],
+                ],
+              ),
+              PositionedDirectional(
+                  top: 10,
+                  start: 10,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.share_rounded,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      List<AssetEntity> favorites =
+                          Provider.of<CreateComparisonStore>(context,
+                                  listen: false)
+                              .favoriteAssetEntities;
+                      if (favorites.isNotEmpty) {
+                        shareWithOtherApps(favorites);
+                      } else {
+                        Dialogs.showDialogWithOkayButton(
+                            context, "Please favorite any image first");
+                      }
+                    },
+                  )),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  navigateBack() async {
+    createComparisonStore.clearStore();
+    setState(() {});
+    await setOrientationVertical();
+    Navigator.pop(context);
   }
 }

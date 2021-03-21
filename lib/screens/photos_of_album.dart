@@ -170,9 +170,6 @@ class _PhotosOfAlbumState extends State<PhotosOfAlbum> {
   }
 
   navigate(Widget widget) async {
-    await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => widget));
-    createComparisonStore.clearStore();
-    setState(() {});
+    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
   }
 }
