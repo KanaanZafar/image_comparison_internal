@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:image_comparison/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 Future<Map<dynamic, dynamic>> readFirebase() async {
   try {
@@ -14,6 +15,7 @@ Future<Map<dynamic, dynamic>> readFirebase() async {
       DataSnapshot dataSnapshot = await dbRef.once();
       sharedPreferences.setString(
           Constants.dataFromFirebase, json.encode(dataSnapshot.value));
+      await readApi();
       return dataSnapshot.value;
     } else {
       SharedPreferences sharedPreferences =
@@ -44,4 +46,13 @@ Future<bool> checkInternetConnection() async {
     internetConnected = false;
   }
   return internetConnected;
+}
+
+readApi() async {
+  try {
+    http.Response response = await http.get(Constants.baseUrl);
+    print("------response: ${response.body}");
+  } catch (e) {
+    print("----errorInReadApi: ${e.toString()}");
+  }
 }
