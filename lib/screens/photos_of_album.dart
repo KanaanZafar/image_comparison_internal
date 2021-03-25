@@ -177,8 +177,7 @@ class _PhotosOfAlbumState extends State<PhotosOfAlbum> {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {});
   }
-
   showStatusBar() async {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    await SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 }
