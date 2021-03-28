@@ -94,13 +94,11 @@ class _ThreePhotosComparisonState extends State<ThreePhotosComparison> {
   navigateBack() async {
     createComparisonStore.clearStore();
     setState(() {});
-    await setOrientationVertical();
     Navigator.pop(context);
   }
 
   hideStatusBar() async {
     await SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     setOrientationHorizontal();
-
   }
 }

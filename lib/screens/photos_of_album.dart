@@ -83,7 +83,7 @@ class _PhotosOfAlbumState extends State<PhotosOfAlbum> {
                 SliverToBoxAdapter(
                   child: Container(
                     color: Colors.transparent,
-                    height: 110,
+                    height: 130,
                   ),
                 )
               ],
@@ -173,8 +173,9 @@ class _PhotosOfAlbumState extends State<PhotosOfAlbum> {
   navigate(Widget widget) async {
     await Navigator.push(
         context, MaterialPageRoute(builder: (context) => widget));
+    await setOrientationVertical();
     await showStatusBar();
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 1000));
     setState(() {});
   }
   showStatusBar() async {
