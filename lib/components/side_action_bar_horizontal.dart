@@ -1,5 +1,7 @@
+import 'package:facebook_audience_network/ad/ad_interstitial.dart';
 import 'package:flutter/material.dart';
 import 'package:image_comparison/stores/create_comparison_store.dart';
+import 'package:image_comparison/utils/ad_ids.dart';
 import 'package:image_comparison/utils/interstatial.dart';
 import 'package:image_comparison/utils/size_config.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -14,14 +16,14 @@ class SideActionBarHorizontal extends StatelessWidget {
   final bool isVertical;
   final double iconSize;
 
-  SideActionBarHorizontal({this.photoHeight,
-    this.photoWidth,
-    this.isVertical = false,
-    this.iconSize = 25});
+  SideActionBarHorizontal(
+      {this.photoHeight,
+      this.photoWidth,
+      this.isVertical = false,
+      this.iconSize = 25});
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: photoWidth,
       height: isVertical ? null : SizeConfig.screenHeight,
@@ -57,19 +59,25 @@ class SideActionBarHorizontal extends StatelessWidget {
                   ),
 //                  iconSize: iconSize,
                   onTap: () async {
-                    bool isLoaded =
+                    /* bool isLoaded =
                     await InterstatialAd.admobInterstitial.isLoaded;
                     if (isLoaded) {
                       InterstatialAd.admobInterstitial.show();
-                    }
+                    } */
+                    FacebookInterstitialAd.showInterstitialAd();
                     await saveIntoGallery(
-                        Provider
-                            .of<CreateComparisonStore>(context,
-                            listen: false)
+                        Provider.of<CreateComparisonStore>(context,
+                                listen: false)
                             .favoriteAssetEntities,
                         context,
                         message: "No favorite image selected");
-                    InterstatialAd.admobInterstitial.load();
+//                    InterstatialAd.admobInterstitial.load();
+                    FacebookInterstitialAd.loadInterstitialAd(
+                        placementId: AdIds.fbInterstatialAdId,
+                        listener: (result, value) {
+                          print("------ comparison screen result: $result");
+                          print("++++ comparison screen value: $value");
+                        });
                   }),
               Container(),
               Container(),
@@ -81,50 +89,44 @@ class SideActionBarHorizontal extends StatelessWidget {
                   ),
                   onTap: () {
                     CreateComparisonStore createComparisonStore =
-                    Provider.of<CreateComparisonStore>(context,
-                        listen: false);
+                        Provider.of<CreateComparisonStore>(context,
+                            listen: false);
                     createComparisonStore.restoreTemporarilyDeleted();
                   })
             ],
           ),
           Expanded(
               child: ListView.builder(
-                scrollDirection: isVertical ? Axis.horizontal : Axis.vertical,
-                itemBuilder: (context, index) {
-                  return Padding(
-                      padding: isVertical
-                          ? EdgeInsets.symmetric(horizontal: 5)
-                          : EdgeInsets.symmetric(vertical: 5),
-                      child: Container(
+            scrollDirection: isVertical ? Axis.horizontal : Axis.vertical,
+            itemBuilder: (context, index) {
+              return Padding(
+                  padding: isVertical
+                      ? EdgeInsets.symmetric(horizontal: 5)
+                      : EdgeInsets.symmetric(vertical: 5),
+                  child: Container(
 //                    height: photoHeight,
-                        width: photoWidth,
-                        child: Draggable(
-                            axis: isVertical ? null : Axis.horizontal,
-                            affinity: isVertical ? Axis.vertical : Axis
-                                .horizontal,
-                            feedback: AssetWidget(
-                                asset: Provider
-                                    .of<CreateComparisonStore>(context)
-                                    .assetEntities[index]),
-                            child: AssetWidget(
-                                asset: Provider
-                                    .of<CreateComparisonStore>(context)
-                                    .assetEntities[index]),
-                            childWhenDragging: AssetWidget(
-                                asset: Provider
-                                    .of<CreateComparisonStore>(context)
-                                    .assetEntities[index]),
-                            data: Provider
-                                .of<CreateComparisonStore>(context,
-                                listen: false)
+                    width: photoWidth,
+                    child: Draggable(
+                        axis: isVertical ? null : Axis.horizontal,
+                        affinity: isVertical ? Axis.vertical : Axis.horizontal,
+                        feedback: AssetWidget(
+                            asset: Provider.of<CreateComparisonStore>(context)
                                 .assetEntities[index]),
-                      ));
-                },
-                itemCount: Provider
-                    .of<CreateComparisonStore>(context)
-                    .assetEntities
-                    .length,
-              ))
+                        child: AssetWidget(
+                            asset: Provider.of<CreateComparisonStore>(context)
+                                .assetEntities[index]),
+                        childWhenDragging: AssetWidget(
+                            asset: Provider.of<CreateComparisonStore>(context)
+                                .assetEntities[index]),
+                        data: Provider.of<CreateComparisonStore>(context,
+                                listen: false)
+                            .assetEntities[index]),
+                  ));
+            },
+            itemCount: Provider.of<CreateComparisonStore>(context)
+                .assetEntities
+                .length,
+          ))
         ],
       ),
     );
@@ -138,7 +140,7 @@ class SideActionBarHorizontal extends StatelessWidget {
     }
 
     CreateComparisonStore createComparisonStore =
-    Provider.of<CreateComparisonStore>(context, listen: false);
+        Provider.of<CreateComparisonStore>(context, listen: false);
 
     try {
       createComparisonStore.updateIsSaving(true);
