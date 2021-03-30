@@ -64,6 +64,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  device_info:
+    dependency: "direct main"
+    description:
+      name: device_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  device_info_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   facebook_audience_network:
     dependency: "direct main"
     description:
@@ -124,6 +138,13 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_database
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.6"
+  firebase_storage:
+    dependency: "direct main"
+    description:
+      name: firebase_storage
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.6"

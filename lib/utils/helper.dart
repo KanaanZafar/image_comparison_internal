@@ -7,7 +7,7 @@ import 'package:image_comparison/utils/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:share/share.dart';
-
+import 'package:device_info/device_info.dart';
 enum ComparisonType { fourPhotos, threePhotos, twoPhotos }
 
 extension ComparsionTypeValue on ComparisonType {
@@ -109,4 +109,14 @@ shareWithOtherApps(List<AssetEntity> assetEntities) async {
 
 shareApp() async {
   await Share.share(Constants.playStoreLink);
+}
+Future<String> getDeviceId() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+//  if (Theme.of(context).platform == TargetPlatform.iOS) {
+//    IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+//    return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+//  } else {
+    AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
+    return androidDeviceInfo.androidId; // unique ID on Android
+//  }
 }
