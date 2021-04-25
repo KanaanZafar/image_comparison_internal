@@ -1,4 +1,4 @@
-package com.gingerapps.ifavs
+package com.gingerapps.ifavs_pro
 
 import io.flutter.embedding.android.FlutterActivity
 

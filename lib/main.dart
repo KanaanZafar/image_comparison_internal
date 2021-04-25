@@ -25,3 +25,4 @@ class MyApp extends StatelessWidget {
         );
   }
 }
+//flutter pub run change_app_package_name:main com.gingerapps.ifavs_pro

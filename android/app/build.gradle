@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.gingerapps.ifavs"
+        applicationId "com.gingerapps.ifavs_pro"
         minSdkVersion 21
         targetSdkVersion 29
         multiDexEnabled true
@@ -76,5 +76,4 @@ dependencies {
 //    implementation platform('com.google.firebase:firebase-bom:26.7.0')
 //    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database:19.6.0'
-    implementation 'com.google.ads.mediation:facebook:5.8.0.0'
 }
