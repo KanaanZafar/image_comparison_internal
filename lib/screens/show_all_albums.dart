@@ -1,5 +1,3 @@
-import 'package:admob_flutter/admob_flutter.dart';
-import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,20 +23,9 @@ class _ShowAllAlbumsScreenState extends State<ShowAllAlbumsScreen> {
 
   @override
   void initState() {
-    FacebookAudienceNetwork.init().then((value) {
-      print("------value: $value");
-    });
     showGalleryBloc = ShowGalleryBloc();
     showGalleryBloc.add(FetchAllAlbums());
-    FacebookInterstitialAd.loadInterstitialAd(
-        listener: (result, value) {
-          print("----interstatial Result: $result");
-          print("+++ interstatial value: $value");
-        },
-        placementId: AdIds.fbInterstatialAdId);
-//    InterstatialAd.admobInterstitial =
-//        AdmobInterstitial(adUnitId: AdIds.interstatialAdId);
-//    InterstatialAd.admobInterstitial.load();
+
     super.initState();
   }
 

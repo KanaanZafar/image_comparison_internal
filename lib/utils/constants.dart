@@ -1,7 +1,7 @@
 class Constants {
   static const showGallery = "Show Gallery";
   static const fullImage = "Full Image";
-  static const iFavorites = "iFavorites";
+  static const iFavorites = "iFavorites Pro";
   static const produceError = "produceError";
   static const errorMessage = "errorMessage";
   static const dataFromFirebase = 'dataFromFirebase';
