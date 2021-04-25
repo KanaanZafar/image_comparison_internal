@@ -70,7 +70,7 @@ packages:
       name: facebook_audience_network
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.0"
+    version: "0.8.0"
   fake_async:
     dependency: transitive
     description:
