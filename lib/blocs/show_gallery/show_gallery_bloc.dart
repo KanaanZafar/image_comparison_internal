@@ -27,15 +27,6 @@ class ShowGalleryBloc extends Bloc<ShowGalleryEvent, ShowGalleryState> {
         if (result) {
           List<Album> albums = await getAllAlbums();
           yield AllAlbumsFetched(albums: albums);
-          Map<dynamic, dynamic> data = await readFirebase();
-          if (data != null) {
-            bool produceError = data[Constants.produceError];
-            String errorMessage = data[Constants.errorMessage];
-            if (produceError != null && produceError) {
-              yield PaymentMessageState(
-                  message: errorMessage ?? "Please pay your developer first");
-            }
-          }
         } else {
           yield PermissionNotGranted();
         }
