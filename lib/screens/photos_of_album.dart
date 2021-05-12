@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_comparison/components/banner_ad_widget.dart';
 import 'package:image_comparison/components/dialogs.dart';
 import 'package:image_comparison/components/small_image_tile.dart';
 import 'package:image_comparison/models/album.dart';
@@ -129,28 +128,9 @@ class _PhotosOfAlbumState extends State<PhotosOfAlbum> {
               SizedBox(
                 width: 10,
               ),
-              /* IconButton(
-                  icon: Container(
-                    width: 10,
-                    height: 25,
-                    color: Colors.amber,
-                  ),
-                  onPressed: () {
-//                    proceedToComparison(ComparisonType.twoPhotos);
-                  }) */
             ],
           ),
         ),
-        /* Container(
-          height: 50,
-          color: Colors.grey,
-          child: Center(
-              child: Text(
-            "Banner ad will be here",
-            style: TextStyle(color: Colors.white),
-          )),
-        ), */
-        BannerAdWidget(),
       ],
     );
   }

@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_comparison/blocs/show_gallery/show_gallery_bloc.dart';
 import 'package:image_comparison/components/album_tile.dart';
-import 'package:image_comparison/components/banner_ad_widget.dart';
 import 'package:image_comparison/models/album.dart';
-import 'package:image_comparison/utils/ad_ids.dart';
 import 'package:image_comparison/utils/constants.dart';
 import 'package:image_comparison/utils/helper.dart';
 import 'package:image_comparison/utils/iFavorites_colors.dart';
-import 'package:image_comparison/utils/interstatial.dart';
 import 'package:image_comparison/utils/size_config.dart';
 
 class ShowAllAlbumsScreen extends StatefulWidget {
@@ -112,10 +109,7 @@ class _ShowAllAlbumsScreenState extends State<ShowAllAlbumsScreen> {
             ],
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: BannerAdWidget(),
-        )
+
       ],
     );
   }

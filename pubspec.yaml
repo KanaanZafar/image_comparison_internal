@@ -39,7 +39,6 @@ dependencies:
   shared_preferences: ^0.5.12+4
   flutter_gallery_saver: ^0.0.7
   http: ^0.12.2
-#  facebook_audience_network: ^0.8.0
 
 
 
